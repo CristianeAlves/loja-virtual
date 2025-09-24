@@ -1,0 +1,10 @@
+<div>
+    <h1>Lista de produtos</h1>
+    <ul>
+        @for (produto of produtos; track produto.id) {
+            <li>
+                <a [routerLink]="['/produtos', produto.id]">{{produto.title}} - {{produto.price}}</a>
+            </li>
+        }
+    </ul>
+</div>
