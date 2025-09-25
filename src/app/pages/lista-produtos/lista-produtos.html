@@ -3,7 +3,10 @@
     <ul>
         @for (produto of produtos; track produto.id) {
             <li>
-                <a [routerLink]="['/produtos', produto.id]">{{produto.title}} - {{produto.price}}</a>
+                <a [routerLink]="['/detalhe-produto', produto.id]">{{produto.title}} - {{produto.price}}</a>
+                <a [routerLink]="['/detalhe-produto', produto.id]">
+                    <img [src]="produto.image" [alt]="produto.title">
+                </a>
             </li>
         }
     </ul>
