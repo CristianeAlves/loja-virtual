@@ -20,6 +20,7 @@ export const routes: Routes = [
         path: 'admin', 
         component: Admin,
         children: [
+            { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
             { path: 'dashboard', component: Dashboard },
             { path: 'manage-products', component: ManageProducts },
             { path: 'manage-users', component: ManageUsers }

@@ -9,7 +9,7 @@
             <p-button [routerLink]="['/lista-produtos']" label="Home" text plain />
             <p-button [routerLink]="['/lista-produtos']" label="Produtos" text plain />
             <p-button [routerLink]="['/sobre']" label="Sobre" text plain />
-            <p-button [routerLink]="['/admin']" label="Administrativo" text plain />
+            <p-splitbutton label="Administrativo" [model]="items" />
         </div>
     </ng-template>
 

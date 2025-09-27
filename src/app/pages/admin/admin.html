@@ -1,1 +1,18 @@
-<p>admin works!</p>
+<div class="admin-layout">
+    <h1>Área Administrativa</h1>
+    
+    <!-- Menu de navegação admin (opcional) -->
+    <nav class="admin-nav mb-4">
+        <a routerLink="/admin/dashboard" routerLinkActive="active" class="nav-link">
+            <i class="pi pi-chart-line"></i> Dashboard
+        </a>
+        <a routerLink="/admin/manage-products" routerLinkActive="active" class="nav-link">
+            <i class="pi pi-shopping-bag"></i> Produtos
+        </a>
+        <a routerLink="/admin/manage-users" routerLinkActive="active" class="nav-link">
+            <i class="pi pi-users"></i> Usuários
+        </a>
+    </nav>
+    
+    <router-outlet></router-outlet>
+</div>

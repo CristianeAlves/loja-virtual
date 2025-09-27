@@ -1,6 +1,6 @@
-<div>
+<div class="flex flex-column align-items-center">
   <h1>Lista de produtos</h1>
-  <ul class="lista-produtos-container">
+  <div class="lista-produtos-container">
     @for (produto of produtos; track produto.id) {
     <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
       <ng-template #header>
@@ -32,7 +32,7 @@
     </p-card>
 
     }
-  </ul>
+</div>
 </div>
 
 
