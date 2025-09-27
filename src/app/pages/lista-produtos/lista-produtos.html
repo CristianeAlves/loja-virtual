@@ -1,13 +1,38 @@
 <div>
-    <h1>Lista de produtos</h1>
-    <ul>
-        @for (produto of produtos; track produto.id) {
-            <li>
-                <a [routerLink]="['/detalhe-produto', produto.id]">{{produto.title}} - {{produto.price}}</a>
-                <a [routerLink]="['/detalhe-produto', produto.id]">
-                    <img [src]="produto.image" [alt]="produto.title">
-                </a>
-            </li>
-        }
-    </ul>
+  <h1>Lista de produtos</h1>
+  <ul class="lista-produtos-container">
+    @for (produto of produtos; track produto.id) {
+    <p-card [style]="{ width: '25rem', overflow: 'hidden' }">
+      <ng-template #header>
+        <img
+          [alt]="produto.title"
+          class="product-image"
+          [src]="produto.image"
+        />
+      </ng-template>
+      <ng-template #title> 
+        <p class="overflow-ellipsis">
+          {{ produto.title }}
+        </p>
+      </ng-template>
+      
+      <ng-template #subtitle> {{ produto.price | currency:'BRL' }} </ng-template>
+      <p>
+        {{produto.rating.rate}} ({{produto.rating.count}} avaliações)
+      </p>
+      <ng-template #footer>
+        <div class="button-container">
+          <p-button 
+            label="Ver detalhe do produto" 
+            class="w-full" 
+            styleClass="w-full"
+            [routerLink]="['/detalhe-produto', produto.id]" />
+        </div>
+      </ng-template>
+    </p-card>
+
+    }
+  </ul>
 </div>
+
+

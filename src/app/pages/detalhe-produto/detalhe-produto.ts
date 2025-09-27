@@ -2,10 +2,13 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProdutosService } from '../../services/produtos-service';
 import { Produto } from '../../models/produto.interface';
+import { ButtonDemoComponent } from "../../components/buttonDemo/buttonDemo.component";
+import { CurrencyPipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-detalhe-produto',
-  imports: [],
+  imports: [ButtonDemoComponent, CurrencyPipe],
   templateUrl: './detalhe-produto.html',
   styleUrl: './detalhe-produto.scss'
 })

@@ -1,9 +1,10 @@
-<div>
-    <h1>Detalhe produto</h1>
-    <p>{{produto?.title}}</p>
-    <p>{{produto?.price}}</p>
-    <p>{{produto?.description}}</p>
+<div class="flex flex-column align-items-center gap-3">
+    <h1>{{produto?.title}}</h1>
     <img [src]="produto?.image" [alt]="produto?.title">
+    <p>{{produto?.description}}</p>
+    <p>{{produto?.price | currency:'BRL'}}</p>
+
+    <app-buttonDemo></app-buttonDemo>
 </div>
 
 
