@@ -1,1 +1,151 @@
-<p>manage-products works!</p>
+<div class="card">
+    <p-toast />
+    <!-- <p-toolbar class="mb-6">
+        <ng-template #start>
+            <p-button label="New" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+        </ng-template>
+
+        <ng-template #end>
+            
+        </ng-template>
+    </p-toolbar> -->
+
+    <p-table
+        #dt
+        [value]="produtos"
+        [rows]="10"
+        [columns]="cols"
+        [paginator]="true"
+        [globalFilterFields]="['title', 'category']"
+        [tableStyle]="{ 'min-width': '75rem' }"
+        [(selection)]="selectedProducts"
+        [rowHover]="true"
+        dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [showCurrentPageReport]="true"
+    >
+        <ng-template #caption>
+            <div class="flex justify-content-around">
+                <h5 class="m-0 text-xl">Gerenciar Produtos</h5>
+                <p-iconfield>
+                    <p-inputicon class="pi pi-search" />
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')" placeholder="Pesquisar..." />
+                </p-iconfield>
+                <p-button label="Novo" icon="pi pi-plus" class="mr-2" (onClick)="openNew()" />
+            </div>
+            
+        </ng-template>
+        <ng-template #header>
+            <tr>
+                <th style="width: 3rem">
+                    <p-tableHeaderCheckbox />
+                </th>
+                <th style="min-width: 10rem">Id</th>
+                <th pSortableColumn="name" style="min-width:16rem">
+                    <div class="flex items-center gap-2">
+                        Nome
+                        <p-sortIcon field="name" />
+                    </div>
+                </th>
+                <th>Imagem</th>
+                <!-- <th style="min-width: 16rem">Imagem</th> -->
+                <th pSortableColumn="price" style="min-width: 8rem">
+                    <div class="flex items-center gap-2">
+                        Preço
+                        <p-sortIcon field="price" />
+                    </div>
+                </th>
+                <th pSortableColumn="category" style="min-width:10rem">
+                    <div class="flex items-center gap-2">
+                        Categoria
+                        <p-sortIcon field="category" />
+                    </div>
+                </th>
+                <th pSortableColumn="rating" style="min-width: 12rem">
+                    <div class="flex items-center gap-2">
+                        Reviews
+                        <p-sortIcon field="rating" />
+                    </div>
+                </th>
+                <th style="min-width: 10rem">Atividade</th>
+                <!-- <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
+                    <div class="flex items-center gap-2">
+                        Atividade
+                        <p-sortIcon field="activity" />
+                    </div>
+                </th> -->
+                <th style="min-width: 12rem"></th>
+            </tr>
+        </ng-template>
+        <ng-template #body let-product>
+            <tr>
+                <td style="width: 3rem">
+                    <p-tableCheckbox [value]="product" />
+                </td>
+                <td style="min-width: 12rem">{{ product.id }}</td>
+                <td style="min-width: 16rem">{{ product.title }}</td>
+                <td>
+                    <img [src]="product.image" [alt]="product.title" style="width: 64px" class="rounded" />
+                </td>
+                <td>{{ product.price | currency: 'BRL' }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.rating.rate }}</td>
+                <td>
+                    <p-button icon="pi pi-pencil" class="mr-2" [rounded]="true" [outlined]="true" (click)="editProduct(product)" />
+                    <p-button icon="pi pi-trash" severity="danger" [rounded]="true" [outlined]="true" (click)="deleteProduct(product)" />
+                </td>
+            </tr>
+        </ng-template> sabe 
+    </p-table>
+
+    <p-dialog [(visible)]="productDialog" [style]="{ width: '550px' }" header="Atualizar Produto" [modal]="true">
+        <ng-template #content>
+            <div class="flex flex-col gap-6">
+                <div>
+                    <label for="name" class="block font-bold mb-3">Name</label>
+                    <input type="text" pInputText id="name" [(ngModel)]="produto.title" required autofocus fluid />
+                    <small class="text-red-500" *ngIf="submitted && !produto.title">Name is required.</small>
+                </div>
+                <div>
+                    <label for="description" class="block font-bold mb-3">Description</label>
+                    <textarea id="description" pTextarea [(ngModel)]="produto.description" required rows="3" cols="20" fluid></textarea>
+                </div>
+                <div>
+                    <span class="block font-bold mb-4">Category</span>
+                    <div class="grid grid-cols-12 gap-4">
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radiobutton id="category1" name="category" value="men's clothing" [(ngModel)]="produto.category" />
+                            <label for="category1">Men's clothing</label>
+                        </div>
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radiobutton id="category2" name="category" value="jewelery" [(ngModel)]="produto.category" />
+                            <label for="category2">Jewelery</label>
+                        </div>
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radiobutton id="category3" name="category" value="Electronics" [(ngModel)]="produto.category" />
+                            <label for="category3">Electronics</label>
+                        </div>
+                        <div class="flex items-center gap-2 col-span-6">
+                            <p-radiobutton id="category4" name="category" value="women's clothing" [(ngModel)]="produto.category" />
+                            <label for="category4">Women's clothing</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-12 gap-4">
+                    <div class="col-span-6">
+                        <label for="price" class="block font-bold mb-3">Price</label>
+                        <p-inputnumber id="price" [(ngModel)]="produto.price" mode="currency" currency="BRL" locale="pt-BR" fluid />
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <ng-template #footer>
+            <p-button label="Cancel" icon="pi pi-times" text (click)="hideDialog()" />
+            <p-button label="Save" icon="pi pi-check" (click)="saveProduct()" />
+        </ng-template>
+    </p-dialog>
+
+    <p-confirmDialog [style]="{ width: '450px' }" />
+</div>
