@@ -1,38 +1,35 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProdutosService } from '../../services/produtos-service';
-import { Produto } from '../../models/produto.interface';
-import { ButtonDemoComponent } from "../../components/buttonDemo/buttonDemo.component";
+import { ButtonDemoComponent } from '../../components/buttonDemo/buttonDemo.component';
 import { CurrencyPipe } from '@angular/common';
-
+import { toSignal } from '@angular/core/rxjs-interop';
+import { map, switchMap } from 'rxjs';
+import { CarrinhoService } from '../../services/carrinho-service';
 
 @Component({
   selector: 'app-detalhe-produto',
   imports: [ButtonDemoComponent, CurrencyPipe],
   templateUrl: './detalhe-produto.html',
-  styleUrl: './detalhe-produto.scss'
+  styleUrl: './detalhe-produto.scss',
 })
-export class DetalheProduto implements OnInit {
-  produtoService = inject(ProdutosService);
-  produto: Produto | undefined;
+export class DetalheProduto {
+  private produtoService = inject(ProdutosService);
+  private route = inject(ActivatedRoute);
+  private carrinhoService = inject(CarrinhoService);
 
-  produtoId: string | null = null;
+  public produto = toSignal(
+    this.route.paramMap.pipe(
+      map((params) => Number(params.get('id'))),
+      switchMap((id) => this.produtoService.getProduto(id))
+    )
+  );
 
-  constructor(private route: ActivatedRoute) {}
-
-  ngOnInit(): void {
-    this.produtoId = this.route.snapshot.paramMap.get('id');
-    console.log('ID do produto:', this.produtoId);
-
-    if(this.produtoId) {
-      this.carregaProduto(Number(this.produtoId));
+  adicionarAoCarrinho() {
+    const produto = this.produto();
+    if(produto) {
+      this.carrinhoService.adicionarAoCarrinho(produto);
+      console.log("PRODUTO ADICIONADO PELO DETALHE PRODUTO:", produto.title);
     }
   }
-
-  carregaProduto(id: number): void {
-    this.produtoService.getProduto(id).subscribe((produto) => {
-      this.produto = produto;
-    });
-  }
-
 }

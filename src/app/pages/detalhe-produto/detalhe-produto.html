@@ -1,10 +1,10 @@
-<div class="flex flex-column align-items-center gap-3">
-    <h1>{{produto?.title}}</h1>
-    <img [src]="produto?.image" [alt]="produto?.title">
-    <p>{{produto?.description}}</p>
-    <p>{{produto?.price | currency:'BRL'}}</p>
+<div class="flex flex-column align-items-center gap-3 w-9 p-8 mx-auto">
+    <h1>{{produto()?.title}}</h1>
+    <img [src]="produto()?.image" [alt]="produto()?.title">
+    <p class="w-9">{{produto()?.description}}</p>
+    <p>{{produto()?.price | currency:'BRL'}}</p>
 
-    <app-buttonDemo></app-buttonDemo>
+    <app-buttonDemo (click)="adicionarAoCarrinho()"></app-buttonDemo>
 </div>
 
 

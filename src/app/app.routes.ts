@@ -6,6 +6,7 @@ import { Admin } from './pages/admin/admin';
 import { Dashboard } from './pages/admin/dashboard/dashboard';
 import { ManageProducts } from './pages/admin/manage-products/manage-products';
 import { ManageUsers } from './pages/admin/manage-users/manage-users';
+import { Carrinho } from './pages/carrinho/carrinho';
 
 export const routes: Routes = [
     {
@@ -15,6 +16,10 @@ export const routes: Routes = [
     {
         path: 'detalhe-produto/:id', 
         component: DetalheProduto
+    },
+    {
+        path: 'carrinho', 
+        component: Carrinho
     },
     {
         path: 'admin', 
