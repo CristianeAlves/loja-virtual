@@ -16,9 +16,6 @@ import { Produto } from '../../models/produto.interface';
 export class Carrinho {
 
   carrinhoService = inject(CarrinhoService);
-
-  trackByFn(index: number, item: Produto): any {
-  return item.id || item.title; 
-}
+  itens = this.carrinhoService.itens;
   
 }
