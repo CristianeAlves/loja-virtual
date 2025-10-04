@@ -1,5 +1,5 @@
 <h1>CARRINHO</h1>
-<div class="carrinho-container">
+<div class="flex justify-content-between">
   <div class="itens-carrinho">
     <p-dataview #dv [value]="carrinhoService.itens()">
       <ng-template #list let-items>
@@ -49,7 +49,7 @@
     </p-dataview>
   </div>
 
-  <div class="resumo-compra">
+  <div class="surface-card">
     <app-resumo-compra></app-resumo-compra>
   </div>
 </div>

@@ -1,10 +1,14 @@
-
-  @if (showHeader()) {
+<div class="app-layout">
+   @if (showHeader()) {
     <app-header></app-header>
   }
 
+  <main class="main-content">
     <router-outlet></router-outlet>
-
+  </main>
 
   <app-footer></app-footer>
+
+</div>
+ 
 
